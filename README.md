@@ -1,169 +1,169 @@
-<div align="center">
- ██████╗ ███████╗ █████╗ ██╗      ███████╗███████╗████████╗ █████╗ ████████╗███████╗
- ██╔══██╗██╔════╝██╔══██╗██║      ██╔════╝██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
- ██████╔╝█████╗  ███████║██║      █████╗  ███████╗   ██║   ███████║   ██║   █████╗  
- ██╔══██╗██╔══╝  ██╔══██║██║      ██╔══╝  ╚════██║   ██║   ██╔══██║   ██║   ██╔══╝  
- ██║  ██║███████╗██║  ██║███████╗ ███████╗███████║   ██║   ██║  ██║   ██║   ███████╗
- ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝ ╚══════╝╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝
-                            S Y S T E M
-A Full-Stack Database-Driven Property Management & Discovery Platform
-Every user is an entity. Every property is a structured record. Built with React, Node.js, and MySQL.
+# Real Estate App
 
-<br>
-React
-Node.js
-MySQL
-Tailwind
-License
+A full-stack web application for property listing, discovery, and management.  
+Built as part of **DBSE-DBD (Database Software Engineering & Database Design)**.
 
-<br>
-Overview · The Problem · How It Works · Architecture · Features · Tech Stack · Database Schema · Getting Started · Team
+Buyers can explore properties, calculate EMIs, save favorites, and manage wallets.  
+Sellers can upload and manage property listings with location support.
 
-</div><br>
- Overview
-The modern real estate market requires fast, reliable, and secure platforms to connect buyers with sellers. However, handling property coordinates, multimedia uploads, secure authentication, and real-time notifications requires a robust, well-designed backend and a highly responsive frontend.
+---
 
-Real Estate System solves this by bridging a high-performance React + Vite frontend with a secure, heavily-normalized MySQL & Node.js database backend.
+## Features
 
-<div align="center">
-Physical World	→	Digital Architecture
-Property Listing	→	Relational DB Record (Images, Pricing, Loc)
-Buyer / Seller	→	Role-Based Authenticated JWT User
-Location	→	Google Maps API Integration
-Financial Planning	→	Dynamic EMI Calculator
-</div>
-[!IMPORTANT]
-This project was developed as part of DBSE-DBD (Database Software Engineering & Database Design). The focus is heavily on proper relational database design, secure API routing, and a seamless client-server architecture.
+- **Authentication**
+  - Email/password signup & login
+  - OTP verification
+  - Google authentication
+  - JWT-based session handling
+  - Role-based access (Buyer / Seller)
 
-<br>
- The Problem
-Property discovery is often fragmented. Users need a centralized platform where they can:
+- **Buyer**
+  - Browse and search properties
+  - Interactive Google Maps view
+  - Save favorites
+  - EMI calculator
+  - Digital wallet
+  - Push notifications
 
-Securely log in and manage profiles (Buyers vs. Sellers).
-Easily estimate costs (EMI calculators).
-View exact property locations on interactive maps.
-Save favorites and maintain a digital wallet.
-<br>
- How It Works
-mermaid
+- **Seller**
+  - Upload property listings (images, price, location, details)
+  - Manage listed properties
+  - View buyer interest
 
-flowchart LR
-    C[Client<br/>React/Vite] <-->|JSON / REST API| API[API Gateway<br/>Node.js & Express]
-    
-    API <--> Auth[Auth Service<br/>OTP & JWT]
-    API <--> Map[Location Service<br/>Google Maps API]
-    API <--> Push[Notification Service<br/>FCM Push]
-    
-    API <--> |SQL Queries| DB[(MySQL<br/>Database)]
-    
-    style C fill:#0f172a,color:#38bdf8
-    style API fill:#14532d,color:#4ade80
-    style DB fill:#075985,color:#7dd3fc
-Capability	Implementation
-Authentication	JWT tokens, OTP Verification, and Google Auth
-Property Mapping	GooglePropertyMap.jsx handling geocoding
-Data Persistence	Relational schema.sql executed via mysql2
-Financial Tools	EmiCalc.jsx for real-time mortgage math
-Notifications	FCM (Firebase Cloud Messaging) integration
-<br>
-🏗 Architecture
-mermaid
+- **General**
+  - Responsive UI (mobile-first)
+  - Offline caching support
+  - RESTful API backend
+  - Relational MySQL database
 
-graph TD
-    subgraph Frontend[" Client Presentation (React)"]
-        UI[Pages: Auth, Buyer, Seller, Shared]
-        Comp[Components: Modals, Nav, Maps]
-        State[Services: Offline Cache, Favorites]
-    end
-    subgraph Backend[" Core Engine (Node.js)"]
-        Routes[Express Routes]
-        Mid[Middleware: Auth, Error Handling]
-        Mail[Nodemailer / Communications]
-    end
-    subgraph Storage[" Database (MySQL)"]
-        Rel[(Normalized Relational Tables)]
-    end
+---
 
-    UI --> Comp
-    Comp --> State
-    State --> Routes
-    Routes --> Mid
-    Mid --> Rel
-    Routes --> Mail
+## Tech Stack
 
-    style Frontend fill:#1e1b4b,color:#fff
-    style Backend fill:#312e81,color:#fff
-    style Storage fill:#4338ca,color:#fff
-<br>
- Features
- Role-Based Authentication: Secure Login, Signup, and OTP Verification for Buyers and Sellers.
- Interactive Property Maps: Integrated Google Maps for precise property location viewing.
- Financial Utilities: Built-in EMI Calculator and built-in "My Wallet" management.
- Seller Dashboard: Dedicated interfaces to upload properties, manage listings, and view buyer interest.
- Buyer Tools: Save properties to Favorites, offline caching for faster loads, and advanced search filtering.
- Responsive UI: Built with Tailwind CSS, featuring bottom navigation for mobile-first experiences.
- Real-Time Alerts: FCM Push Notifications to keep users updated on property status.
-<br>
- Tech Stack
-<div align="center">
-Category	Tools
-Frontend Framework	ReactVite
-Styling	Tailwind
-Backend API	NodeExpress
-Database	MySQLmysql2 driver
-Auth & Security	JWT (jws), Nodemailer (OTP), Google Auth
-Dev Environment	VSCode
-</div><br>
- Database Schema Highlights
-The backend relies on a strictly designed MySQL relational database (schema.sql). Key entities include:
+| Layer      | Technology                          |
+|------------|-------------------------------------|
+| Frontend   | React, Vite, Tailwind CSS           |
+| Backend    | Node.js, Express                    |
+| Database   | MySQL (`mysql2`)                    |
+| Auth       | JWT, OTP (Nodemailer), Google Auth  |
+| Maps       | Google Maps API                     |
+| Other      | Firebase Cloud Messaging (FCM)      |
 
-Users Table: Handles generic data, passwords (hashed), and role differentiation (ENUM('buyer', 'seller')).
-Properties Table: Linked via Foreign Key to Sellers. Stores pricing, coordinates, descriptions, and media links.
-Favorites Table: Junction table tracking Many-to-Many relationships between Buyers and Properties.
-Wallets/Transactions: Tracks platform currency, deposits, and status.
-<br>
- Getting Started
+---
+
+## Project Structure
+
+├── backend/
+│   ├── server.js
+│   ├── schema.sql
+│   ├── package.json
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   │   ├── auth/
+│   │   │   ├── buyer/
+│   │   │   ├── seller/
+│   │   │   └── shared/
+│   │   ├── services/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+└── README.md
+Getting Started
 Prerequisites
-Node.js (v18+)
-MySQL Server running locally or remotely
+Node.js v18 or higher
+MySQL Server
 Git
-Installation
+Google Maps API key (optional, for maps)
+Gmail / SMTP credentials (for OTP emails)
+1. Clone the repository
 Bash
 
-# 1. Clone the repository
 git clone https://github.com/logicCrafter320/logicCrafter320-DBSE-DBD.git
 cd logicCrafter320-DBSE-DBD
+2. Database Setup
+Create a MySQL database and run the schema:
 
-# 2. Setup the Database
-# Run the provided schema file in your MySQL environment
+Bash
+
 mysql -u root -p < backend/schema.sql
+Or import backend/schema.sql using MySQL Workbench / phpMyAdmin.
 
-# 3. Install Backend Dependencies & Start Server
+3. Backend Setup
+Bash
+
 cd backend
 npm install
-# Create a .env file with your DB credentials, JWT secrets, etc.
-npm start
+Create a .env file inside backend/:
 
-# 4. Install Frontend Dependencies & Start Client
+env
+
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=real_estate
+JWT_SECRET=your_jwt_secret
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
+Start the server:
+
+Bash
+
+npm start
+Backend runs at: http://localhost:5000
+
+4. Frontend Setup
+Bash
+
 cd ../frontend
 npm install
+Create a .env file inside frontend/ (if required):
+
+env
+
+VITE_API_URL=http://localhost:5000
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_key
+Start the development server:
+
+Bash
+
 npm run dev
-Quick Usage
-Open http://localhost:5173 in your browser.
-Sign up as a Seller to list a property (upload images, set coordinates).
-Log in as a Buyer to view the property map, calculate EMIs, and save to favorites.
-<br>
- Expected Outcome
- A fully functional, full-stack real estate marketplace.
- Demonstrates secure CRUD operations via Express & MySQL.
- Seamless user experience with offline caching and mobile-friendly UI.
- Implementation of third-party APIs (Google Maps, Firebase).
-<br>
-👥 Team
-<div align="center">
-Name	Roll Number	Role/Focus
+Frontend runs at: http://localhost:5173
+
+Usage
+Open http://localhost:5173
+Sign up as a Seller → upload properties
+Sign up / log in as a Buyer → browse listings, use EMI calculator, save favorites
+Use the map view to explore property locations
+Database Overview
+Main tables (see backend/schema.sql for full details):
+
+users — buyers & sellers (role-based)
+properties — listings with price, location, images, seller reference
+favorites — many-to-many relation between buyers and properties
+wallets / transactions — user balance and payment history
+API Overview
+Method	Endpoint example	Description
+POST	/api/auth/signup	Register user
+POST	/api/auth/login	Login & receive JWT
+POST	/api/auth/verify-otp	OTP verification
+GET	/api/properties	List all properties
+POST	/api/properties	Create property (Seller)
+GET	/api/favorites	Get user favorites
+POST	/api/favorites	Add to favorites
+Full route list is available in backend/server.js.
+
+Team
+Name	Roll Number	Role
 Santosh	2520030330	Developer
 Ganesh	2520030252	Developer
-DBSE-DBD (Database Software Engineering & Database Design)
+Course: DBSE-DBD (Database Software Engineering & Database Design)
 
-</div><br>
+License
+This project is developed for academic purposes.
+Licensed under the MIT License.
